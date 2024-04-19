@@ -1,4 +1,6 @@
-﻿namespace SummaryExercise.Search
+﻿using Retriever;
+
+namespace DataHandler.Search
 {
     public interface ISpecialDataHandler
     {

@@ -1,6 +1,6 @@
-﻿using SummaryExercise.Context;
+﻿using Retriever;
 
-namespace SummaryExercise.Search
+namespace DataHandler.Search
 {
     public class CellphoneDataHandler : DataHandler
     {
@@ -10,7 +10,7 @@ namespace SummaryExercise.Search
         {
             IEnumerable<Item> items = _context.GetAll();
             return items
-                .Where(i => i.Name.Contains(word, StringComparison.CurrentCultureIgnoreCase) || 
+                .Where(i => i.Name.Contains(word, StringComparison.CurrentCultureIgnoreCase) ||
                             i.Surname.Contains(word, StringComparison.CurrentCultureIgnoreCase))
                 .Select(i => i.Mobile);
         }

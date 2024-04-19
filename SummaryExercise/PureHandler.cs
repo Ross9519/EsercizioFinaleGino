@@ -1,5 +1,6 @@
-﻿using SummaryExercise.Print;
-using SummaryExercise.Search;
+﻿using DataHandler.Print;
+using DataHandler.Search;
+using Retriever;
 
 namespace SummaryExercise
 {
@@ -22,6 +23,11 @@ namespace SummaryExercise
         public bool Add(Item item)
         {
             return _handler.Add(item);
+        }
+
+        public bool Remove(Item item)
+        {
+            return _handler.Remove(item);
         }
 
         public void Print(IEnumerable<string> words)

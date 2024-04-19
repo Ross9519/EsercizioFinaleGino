@@ -1,36 +1,35 @@
-﻿namespace SummaryExercise.Context
+﻿namespace Retriever
 {
-    public class CSVContext : IContext
+    public class CsvContext : IContext
     {
 
         private List<Item> _items;
         private readonly string _path;
 
-        public CSVContext(string path)
+        public CsvContext(string path)
         {
             _path = path;
+            _items = [];
         }
 
         public void RetrieveData()
         {
-            _items = [];
             using StreamReader reader = new(_path);
             reader.ReadLine();
             while (!reader.EndOfStream)
             {
-                var parts = reader.ReadLine().Split(';');
-                if (parts.Length > 0)
+                var parts = reader.ReadLine()?.Split(';');
+                if (parts is { Length: > 0 })
                 {
-                    Item item = new()
-                    {
-                        Name = parts[0],
-                        Surname = parts[1],
-                        Address = parts[2],
-                        City = parts[3],
-                        Mobile = parts[4],
-                        Email = parts[5]
-                    };
-                    _items.Add(item);
+                    _items.Add(new()
+                        {
+                            Name = parts[0],
+                            Surname = parts[1],
+                            Address = parts[2],
+                            City = parts[3],
+                            Mobile = parts[4],
+                            Email = parts[5]
+                        });
                 }
             }
         }
@@ -43,15 +42,15 @@
             }
         }
 
-        public Item GetOne(int mobile)
+        public Item? GetOne(int mobile)
         {
-            return _items.Where(i => i.Mobile.Equals(mobile.ToString())).Single();
+            return _items.SingleOrDefault(i => i.Mobile.Equals(mobile.ToString()));
         }
 
         public void Save(Item item)
         {
             _items.Add(item);
-            string toInsert = $"{item.Name};{item.Surname};{item.Address};{item.City};{item.Mobile};{item.Email}";
+            var toInsert = $"{item.Name};{item.Surname};{item.Address};{item.City};{item.Mobile};{item.Email}";
             using var writer = File.AppendText(_path);
             writer.WriteLine(toInsert);
         }
@@ -63,7 +62,7 @@
             writer.WriteLine("name;surname;adress;city;mobile;email");
             GetAll()
                 .Where(i => !i.Mobile.Equals(item.Mobile))
-                .Select(item => $"{item.Name};{item.Surname};{item.Address};{item.City};{item.Mobile};{item.Email}")
+                .Select(it => $"{it.Name};{it.Surname};{it.Address};{it.City};{it.Mobile};{it.Email}")
                 .ToList()
                 .ForEach(i => writer.WriteLine(i));
         }

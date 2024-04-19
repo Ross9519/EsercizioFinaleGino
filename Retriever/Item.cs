@@ -1,4 +1,4 @@
-﻿namespace SummaryExercise
+﻿namespace Retriever
 {
     public class Item
     {
@@ -8,6 +8,8 @@
         public string City { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
+
+        public override string ToString() => string.Join("|", Name, Surname, Address, City, Mobile, Email);
 
     }
 }

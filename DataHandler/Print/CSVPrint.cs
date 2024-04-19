@@ -1,4 +1,4 @@
-﻿namespace SummaryExercise.Print
+﻿namespace DataHandler.Print
 {
     public class CSVPrint : IPrint
     {
@@ -11,8 +11,14 @@
 
         public void Print(IEnumerable<string> words)
         {
+            words.ToList().ForEach(i => Print(i));
+        }
+
+        //così hai più flessibilità, puoi stampare da 1 a n stringhe
+        public void Print(string words)
+        {
             using var writer = File.AppendText(_path);
-            words.ToList().ForEach(i => writer.WriteLine(i));
+            writer.WriteLine(words);
         }
     }
 }

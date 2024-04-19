@@ -1,6 +1,7 @@
-﻿using SummaryExercise.Context;
+﻿using Retriever;
 
-namespace SummaryExercise.Search
+
+namespace DataHandler.Search
 {
     public class TotalDataHandler : DataHandler, ISpecialDataHandler
     {
@@ -11,9 +12,9 @@ namespace SummaryExercise.Search
             IEnumerable<Item> items = _context.GetAll();
             foreach (var item in items)
             {
-                if(item.Name.Contains(word, StringComparison.CurrentCultureIgnoreCase))
+                if (item.Name.Contains(word, StringComparison.CurrentCultureIgnoreCase))
                     yield return $"{word} trovata: in profilo {item.Name} {item.Surname}. E' il suo Nome";
-                if(item.Surname.Contains(word, StringComparison.CurrentCultureIgnoreCase))
+                if (item.Surname.Contains(word, StringComparison.CurrentCultureIgnoreCase))
                     yield return $"{word} trovata: in profilo {item.Name} {item.Surname}. E' il suo Cognome";
                 if (item.Address.Contains(word, StringComparison.CurrentCultureIgnoreCase))
                     yield return $"{word} trovata: in profilo {item.Name} {item.Surname}. E' il suo Indirizzo";
@@ -26,17 +27,17 @@ namespace SummaryExercise.Search
             }
         }
 
-        public IEnumerable<Item> SpecialSearch(string word) 
+        public IEnumerable<Item> SpecialSearch(string word)
         {
             return _context
                 .GetAll()
                 .Where
-                (   i =>
-                    i.Name.Contains(word,StringComparison.CurrentCultureIgnoreCase)     ||
+                (i =>
+                    i.Name.Contains(word, StringComparison.CurrentCultureIgnoreCase) ||
                     i.Surname.Contains(word, StringComparison.CurrentCultureIgnoreCase) ||
                     i.Address.Contains(word, StringComparison.CurrentCultureIgnoreCase) ||
-                    i.City.Contains(word, StringComparison.CurrentCultureIgnoreCase)    ||
-                    i.Mobile.Contains(word, StringComparison.CurrentCultureIgnoreCase)  ||
+                    i.City.Contains(word, StringComparison.CurrentCultureIgnoreCase) ||
+                    i.Mobile.Contains(word, StringComparison.CurrentCultureIgnoreCase) ||
                     i.Email.Contains(word, StringComparison.CurrentCultureIgnoreCase)
                 );
         }
