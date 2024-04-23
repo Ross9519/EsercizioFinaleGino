@@ -23,7 +23,7 @@ foreach (var item in itemSearched)
 //funziona
 var itemdacancellare = itemSearched.First();
 
-totalHandler.Remove(itemdacancellare);
+//totalHandler.Remove(itemdacancellare);
 
 //Rossana;Mazzuconi;via Bosi;Gotham;8417678500;Rossana.Mazzuconi@email.euris
 
@@ -40,7 +40,7 @@ var itemdacancellare2 = new Item
 totalHandler.Remove(itemdacancellare2);
 
 //questo funziona
-totalHandler.SecureRemove(itemdacancellare2);
+//totalHandler.SecureRemove(itemdacancellare2);
 
 
 
