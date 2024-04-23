@@ -23,7 +23,14 @@ foreach (var item in itemSearched)
 //funziona
 var itemdacancellare = itemSearched.First();
 
-//totalHandler.Remove(itemdacancellare);
+if(!totalHandler.Remove(itemdacancellare))
+    Console.WriteLine("Prima rimozione non funziona");
+else
+    Console.WriteLine("Prima rimozione andata a buon fine");
+if (!handler.Add(itemdacancellare))
+    Console.WriteLine("Primo inserimento non funziona");
+else
+    Console.WriteLine("Primo inserimento andato a buon fine");
 
 //Rossana;Mazzuconi;via Bosi;Gotham;8417678500;Rossana.Mazzuconi@email.euris
 
@@ -36,11 +43,21 @@ var itemdacancellare2 = new Item
     Name = "Rossana",
     Surname = "Mazzuconi",
 };
-//attenzione che questo non funziona... perchè gli oggetti vanno per riferimento
-totalHandler.Remove(itemdacancellare2);
+
+if (!totalHandler.Remove(itemdacancellare2))
+    Console.WriteLine("Seconda rimozione non funziona");
+else
+    Console.WriteLine("Seconda rimozione andata a buon fine");
+if (!handler.Add(itemdacancellare2))
+    Console.WriteLine("Secondo inserimento non funziona");
+else
+    Console.WriteLine("Secondo inserimento andato a buon fine");
 
 //questo funziona
-//totalHandler.SecureRemove(itemdacancellare2);
+if (!totalHandler.SecureRemove(itemdacancellare2))
+    Console.WriteLine("Terza rimozione non funziona");
+else
+    Console.WriteLine("Terza rimozione andata a buon fine");
 
 
 
