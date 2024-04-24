@@ -60,11 +60,7 @@
             _items.Remove(item);
             using var writer = File.CreateText(_path);
             writer.WriteLine("name;surname;adress;city;mobile;email");
-            GetAll()
-                .Where(i => !i.Mobile.Equals(item.Mobile))
-                .Select(it => $"{it.Name};{it.Surname};{it.Address};{it.City};{it.Mobile};{it.Email}")
-                .ToList()
-                .ForEach(i => writer.WriteLine(i));
+           _items.ForEach(i => writer.WriteLine(i));
         }
 
         public void Dispose()
