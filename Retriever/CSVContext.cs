@@ -1,14 +1,14 @@
 ﻿namespace Retriever
 {
-    public class CsvContext : IContext
+    public class CsvContext : ContextImpl
     {
 
         private List<Item> _items;
         private readonly string _path;
 
-        public CsvContext(string path)
+        public CsvContext(string path) : base(path)
         {
-            _path = path;
+            _path = _info;
             _items = [];
         }
 
@@ -34,7 +34,7 @@
             }
         }
 
-        public IEnumerable<Item> GetAll()
+        public override IEnumerable<Item> GetAll()
         {
             foreach (var item in _items)
             {
@@ -42,12 +42,12 @@
             }
         }
 
-        public Item? GetOne(int mobile)
+        public override Item? GetOne(int mobile)
         {
             return _items.SingleOrDefault(i => i.Mobile.Equals(mobile.ToString()));
         }
 
-        public void Save(Item item)
+        public override void Save(Item item)
         {
             _items.Add(item);
             var toInsert = $"{item.Name};{item.Surname};{item.Address};{item.City};{item.Mobile};{item.Email}";
@@ -55,7 +55,7 @@
             writer.WriteLine(toInsert);
         }
 
-        public void Delete(Item item)
+        public override void Delete(Item item)
         {
             _items.Remove(item);
             using var writer = File.CreateText(_path);
@@ -63,7 +63,7 @@
            _items.ForEach(i => writer.WriteLine(i));
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _items.Clear();
         }

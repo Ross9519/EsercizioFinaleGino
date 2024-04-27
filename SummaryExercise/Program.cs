@@ -4,9 +4,13 @@ using Retriever;
 using SummaryExercise;
 
 
-using var context = new CsvContext("Rub.csv");
+//using var context = new CsvContext("Rub.csv");
 
-context.RetrieveData();
+//context.RetrieveData();
+
+string stringConnection = @"Data Source=ross\sqlexpress;Initial Catalog=Items;Integrated Security=True;Encrypt=False";
+using DbContext context = new(stringConnection);
+context.Open();
 
 var handler = new PureHandler(new CellphoneDataHandler(context), new ConsolePrint());
 
@@ -23,7 +27,7 @@ foreach (var item in itemSearched)
 //funziona
 var itemdacancellare = itemSearched.First();
 
-if(!totalHandler.Remove(itemdacancellare))
+if (!totalHandler.Remove(itemdacancellare))
     Console.WriteLine("Prima rimozione non funziona");
 else
     Console.WriteLine("Prima rimozione andata a buon fine");
@@ -58,7 +62,10 @@ if (!totalHandler.SecureRemove(itemdacancellare2))
     Console.WriteLine("Terza rimozione non funziona");
 else
     Console.WriteLine("Terza rimozione andata a buon fine");
-
+if (!handler.Add(itemdacancellare2))
+    Console.WriteLine("Terzo inserimento non funziona");
+else
+    Console.WriteLine("terzo inserimento andato a buon fine");
 
 
 
