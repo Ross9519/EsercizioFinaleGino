@@ -8,7 +8,7 @@ using SummaryExercise;
 
 //context.RetrieveData();
 
-string stringConnection = @"Data Source=ross\sqlexpress;Initial Catalog=Items;Integrated Security=True;Encrypt=False";
+string stringConnection = @"Data Source=ross\sqlexpress;Initial Catalog=DbGino;Integrated Security=True;Encrypt=False";
 using DbContext context = new(stringConnection);
 context.Open();
 
