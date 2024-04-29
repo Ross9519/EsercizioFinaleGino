@@ -5,15 +5,16 @@ namespace Retriever
 {
     public class DbContext : ContextImpl
     {
-        private readonly SqlConnection _conn;
+        private SqlConnection _conn;
 
         public DbContext(string connectionString) : base(connectionString)
         {
-            _conn = new SqlConnection(_info);
+        
         }
 
         public void Open()
-        { 
+        {
+            _conn = new SqlConnection(_info);
             _conn.Open();
         }
 
@@ -24,7 +25,7 @@ namespace Retriever
 
         public override void Delete(Item item)
         {
-            string query = "DELETE Items WHERE Mobile = @mobile";
+            var query = "DELETE Items WHERE Mobile = @mobile";
             using SqlCommand cmd = new(query, _conn);
             cmd.Parameters.AddWithValue("@mobile", item.Mobile);
 
@@ -38,7 +39,7 @@ namespace Retriever
 
         public override IEnumerable<Item> GetAll()
         {
-            string query = "SELECT * FROM Items";
+            var query = "SELECT * FROM Items";
             using SqlCommand cmd = new(query, _conn);
 
             using SqlDataReader dataReader = cmd.ExecuteReader();
@@ -86,7 +87,7 @@ namespace Retriever
 
         public override void Save(Item item)
         {
-            string query = "INSERT INTO Items(name, surname, address, city, mobile, email) VALUES(@name, @surname, @address, @city, @mobile, @email)";
+            var query = "INSERT INTO Items(name, surname, address, city, mobile, email) VALUES(@name, @surname, @address, @city, @mobile, @email)";
             using SqlCommand cmd = new(query, _conn);
             cmd.Parameters.AddRange([
                     new("@name", item.Name),
