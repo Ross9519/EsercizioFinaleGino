@@ -18,6 +18,7 @@ public class DbContext2
     {
         var query = "DELETE Items WHERE Mobile = @mobile";
         using var connection = new SqlConnection(_connectionString);
+        connection.Open();
         using SqlCommand cmd = new(query, connection);
         cmd.Parameters.AddWithValue("@mobile", item.Mobile);
 
@@ -29,6 +30,7 @@ public class DbContext2
     {
         var query = "SELECT * FROM Items";
         using var connection = new SqlConnection(_connectionString);
+        connection.Open();
         using SqlCommand cmd = new(query, connection);
 
         using SqlDataReader dataReader = cmd.ExecuteReader();
@@ -55,6 +57,7 @@ public class DbContext2
     {
         string query = "SELECT * FROM Items Where mobile = @mobile";
         using var connection = new SqlConnection(_connectionString);
+        connection.Open();
         using SqlCommand cmd = new(query, connection);
         cmd.Parameters.AddWithValue("@mobile", mobile);
 
@@ -79,6 +82,7 @@ public class DbContext2
     {
         var query = "INSERT INTO Items(name, surname, address, city, mobile, email) VALUES(@name, @surname, @address, @city, @mobile, @email)";
         using var connection = new SqlConnection(_connectionString);
+        connection.Open();
         using SqlCommand cmd = new(query, connection);
         cmd.Parameters.AddRange([
             new("@name", item.Name),
